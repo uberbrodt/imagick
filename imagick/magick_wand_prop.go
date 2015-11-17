@@ -5,7 +5,7 @@
 package imagick
 
 /*
-#include <wand/MagickWand.h>
+#include <wand/magick_wand.h>
 */
 import "C"
 import (

@@ -5,7 +5,7 @@
 package imagick
 
 /*
-#include <magick/MagickCore.h>
+#include <magick/api.h>
 */
 import "C"
 

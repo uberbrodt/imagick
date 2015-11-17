@@ -6,7 +6,7 @@ package imagick
 
 /*
 #include <unistd.h>
-#include <wand/MagickWand.h>
+#include <wand/magick_wand.h>
 #cgo darwin CFLAGS: -Wno-deprecated-declarations
 */
 import "C"
