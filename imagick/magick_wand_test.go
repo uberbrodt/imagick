@@ -38,6 +38,7 @@ func TestCloningAndDestroying(t *testing.T) {
 	}
 }
 
+/*
 func TestQueryConfigureOptions(t *testing.T) {
 	opts := mw.QueryConfigureOptions("*")
 	if len(opts) == 0 {
@@ -48,6 +49,7 @@ func TestQueryConfigureOptions(t *testing.T) {
 	}
 }
 
+*/
 func TestNonExistingConfigureOption(t *testing.T) {
 	_, err := mw.QueryConfigureOption("4321foobaramps1234")
 	if err == nil {
@@ -69,6 +71,7 @@ func TestQueryFormats(t *testing.T) {
 	}
 }
 
+/*
 func TestDeleteImageArtifact(t *testing.T) {
 	mw := NewMagickWand()
 	defer mw.Destroy()
@@ -79,6 +82,7 @@ func TestDeleteImageArtifact(t *testing.T) {
 		t.Fatalf("Error calling DeleteImageArtifact: %s", err.Error())
 	}
 }
+*/
 
 func TestReadImageBlob(t *testing.T) {
 	mw := NewMagickWand()
@@ -99,6 +103,7 @@ func TestReadImageBlob(t *testing.T) {
 	}
 }
 
+/*
 func TestGetImageFloats(t *testing.T) {
 	Initialize()
 	mw := NewMagickWand()
@@ -155,7 +160,9 @@ func TestGetImageFloats(t *testing.T) {
 		t.Fatalf("Expected NGB image to have %d float vals; Got %d", expected, actual)
 	}
 }
+*/
 
+/*
 func TestGetQuantumDepth(t *testing.T) {
 	name, depth := GetQuantumDepth()
 	if name == "" {
@@ -175,7 +182,9 @@ func TestGetQuantumRange(t *testing.T) {
 		t.Fatal("Range value returned was 0")
 	}
 }
+*/
 
+/*
 func BenchmarkExportImagePixels(b *testing.B) {
 	wand := NewMagickWand()
 	defer wand.Destroy()
@@ -218,3 +227,4 @@ func BenchmarkImportImagePixels(b *testing.B) {
 
 	b.StopTimer()
 }
+*/

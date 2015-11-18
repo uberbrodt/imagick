@@ -8,9 +8,12 @@ package imagick
 #include <wand/magick_wand.h>
 */
 import "C"
+import "os"
+import "unsafe"
 
 var (
 	initialized bool
+	dumb        *C.char
 )
 
 // Inicializes the MagickWand environment
@@ -18,13 +21,16 @@ func Initialize() {
 	if initialized {
 		return
 	}
-	C.InitializeMagick(C.CString("foobar"))
+	dumb = C.CString(os.Args[0])
+	//defer C.free(unsafe.Pointer(dumb))
+	C.InitializeMagick(dumb)
 	initialized = true
 }
 
 // Terminates the MagickWand environment
 func Terminate() {
 	if initialized {
+		C.free(unsafe.Pointer(dumb))
 		C.DestroyMagick()
 		initialized = false
 	}

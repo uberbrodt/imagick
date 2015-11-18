@@ -25,6 +25,18 @@ func NewMagickWand() *MagickWand {
 	return &MagickWand{C.NewMagickWand()}
 }
 
+// Returns true if the wand is a verified magick wand
+func (mw *MagickWand) IsVerified() bool {
+	if mw.mw != nil {
+		var version C.ulong
+		C.MagickGetVersion(&version)
+
+		return uint(version) > 0
+		//return 1 == C.int(C.IsMagickWand(mw.mw))
+	}
+	return false
+}
+
 // Returns a wand with an image/
 /*
 func NewMagickWandFromImage(img *Image) *MagickWand {
