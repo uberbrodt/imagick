@@ -12,7 +12,7 @@ import "C"
 type PaintMethod int
 
 const (
-	PAINT_METHOD_UNDEFINED    PaintMethod = C.UndefinedMethod
+	//PAINT_METHOD_UNDEFINED    PaintMethod = C.UndefinedMethod
 	PAINT_METHOD_POINT        PaintMethod = C.PointMethod
 	PAINT_METHOD_REPLACE      PaintMethod = C.ReplaceMethod
 	PAINT_METHOD_FLOODFILL    PaintMethod = C.FloodfillMethod

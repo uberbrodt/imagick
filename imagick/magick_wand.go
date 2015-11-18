@@ -11,7 +11,6 @@ package imagick
 import "C"
 
 import (
-	"fmt"
 	"unsafe"
 )
 
@@ -27,14 +26,18 @@ func NewMagickWand() *MagickWand {
 }
 
 // Returns a wand with an image/
+/*
 func NewMagickWandFromImage(img *Image) *MagickWand {
 	return &MagickWand{C.NewMagickWandFromImage(img.img)}
 }
+*/
 
 // Clear resources associated with the wand, leaving the wand blank, and ready to be used for a new set of images.
+/*
 func (mw *MagickWand) Clear() {
 	C.ClearMagickWand(mw.mw)
 }
+*/
 
 // Makes an exact copy of the MagickWand object
 func (mw *MagickWand) Clone() *MagickWand {
@@ -47,38 +50,31 @@ func (mw *MagickWand) Destroy() {
 	if mw.mw == nil {
 		return
 	}
-	mw.mw = C.DestroyMagickWand(mw.mw)
+	C.DestroyMagickWand(mw.mw)
 	relinquishMemory(unsafe.Pointer(mw.mw))
 	mw.mw = nil
 }
 
-// Returns true if the wand is a verified magick wand
-func (mw *MagickWand) IsVerified() bool {
-	if mw.mw != nil {
-		return 1 == C.int(C.IsMagickWand(mw.mw))
-	}
-	return false
-}
-
 // Returns the position of the iterator in the image list
 func (mw *MagickWand) GetIteratorIndex() uint {
-	return uint(C.MagickGetIteratorIndex(mw.mw))
+	return uint(C.MagickGetImageIndex(mw.mw))
 }
 
 // Returns the value associated with the specified configure option
 func (mw *MagickWand) QueryConfigureOption(option string) (string, error) {
 	csoption := C.CString(option)
 	defer C.free(unsafe.Pointer(csoption))
-	availableOptions := mw.QueryConfigureOptions(option)
-	for _, availableOption := range availableOptions {
-		if availableOption == option {
-			return C.GoString(C.MagickQueryConfigureOption(csoption)), nil
-		}
-	}
-	return "", fmt.Errorf("Unknown option \"%s\"", option)
+	//availableOptions := mw.QueryConfigureOptions(option)
+	//for _, availableOption := range availableOptions {
+	//if availableOption == option {
+	return C.GoString(C.MagickGetConfigureInfo(mw.mw, csoption)), nil
+	//}
+	//}
+	//return "", fmt.Errorf("Unknown option \"%s\"", option)
 }
 
 // Returns any configure options that match the specified pattern (e.g. "*" for all). Options include NAME, VERSION, LIB_VERSION, etc
+/*
 func (mw *MagickWand) QueryConfigureOptions(pattern string) (options []string) {
 	cspattern := C.CString(pattern)
 	defer C.free(unsafe.Pointer(cspattern))
@@ -88,8 +84,10 @@ func (mw *MagickWand) QueryConfigureOptions(pattern string) (options []string) {
 	options = sizedCStringArrayToStringSlice(copts, num)
 	return
 }
+*/
 
 // Returns a FontMetrics struct
+/*
 func (mw *MagickWand) QueryFontMetrics(dw *DrawingWand, textLine string) *FontMetrics {
 	cstext := C.CString(textLine)
 	defer C.free(unsafe.Pointer(cstext))
@@ -98,8 +96,10 @@ func (mw *MagickWand) QueryFontMetrics(dw *DrawingWand, textLine string) *FontMe
 	doubles := sizedDoubleArrayToFloat64Slice(cdoubles, 13)
 	return NewFontMetricsFromArray(doubles)
 }
+*/
 
 // Returns a FontMetrics struct related to the multiline text
+/*
 func (mw *MagickWand) QueryMultilineFontMetrics(dw *DrawingWand, textParagraph string) *FontMetrics {
 	cstext := C.CString(textParagraph)
 	defer C.free(unsafe.Pointer(cstext))
@@ -108,15 +108,16 @@ func (mw *MagickWand) QueryMultilineFontMetrics(dw *DrawingWand, textParagraph s
 	doubles := sizedDoubleArrayToFloat64Slice(cdoubles, 13)
 	return NewFontMetricsFromArray(doubles)
 }
+*/
 
 // Returns any font that match the specified pattern (e.g. "*" for all)
 func (mw *MagickWand) QueryFonts(pattern string) (fonts []string) {
 	cspattern := C.CString(pattern)
 	defer C.free(unsafe.Pointer(cspattern))
-	var num C.size_t
+	var num C.ulong
 	copts := C.MagickQueryFonts(cspattern, &num)
 	defer relinquishMemoryCStringArray(copts)
-	fonts = sizedCStringArrayToStringSlice(copts, num)
+	fonts = sizedCStringArrayToStringSliceLong(copts, num)
 	return
 }
 
@@ -124,10 +125,10 @@ func (mw *MagickWand) QueryFonts(pattern string) (fonts []string) {
 func (mw *MagickWand) QueryFormats(pattern string) (formats []string) {
 	cspattern := C.CString(pattern)
 	defer C.free(unsafe.Pointer(cspattern))
-	var num C.size_t
+	var num C.ulong
 	copts := C.MagickQueryFormats(cspattern, &num)
 	defer relinquishMemoryCStringArray(copts)
-	formats = sizedCStringArrayToStringSlice(copts, num)
+	formats = sizedCStringArrayToStringSliceLong(copts, num)
 	return
 }
 
@@ -145,9 +146,11 @@ func (mw *MagickWand) ResetIterator() {
 // Also the current image has been set to the first image (if any) in the MagickWand. Using NextImage() will then set the
 // current image to the second image in the list (if present).
 // This operation is similar to ResetIterator() but differs in how AddImage(), ReadImage(), and NextImage() behaves afterward.
+/*
 func (mw *MagickWand) SetFirstIterator() {
 	C.MagickSetFirstIterator(mw.mw)
 }
+*/
 
 // This method set the iterator to the given position in the image list specified with the index parameter.
 // A zero index will set the first image as current, and so on. Negative indexes can be used to specify an
@@ -158,13 +161,14 @@ func (mw *MagickWand) SetFirstIterator() {
 // regardless of if a zero (first image in list) or negative index (from end) is used.
 // Jumping to index 0 is similar to ResetIterator() but differs in how NextImage() behaves afterward.
 func (mw *MagickWand) SetIteratorIndex(index int) bool {
-	return 1 == C.int(C.MagickSetIteratorIndex(mw.mw, C.ssize_t(index)))
+	return 1 == C.int(C.MagickSetImageIndex(mw.mw, C.long(index)))
 }
 
 // SetLastIterator() sets the wand iterator to the last image.
 // The last image is actually the current image, and the next use of PreviousImage() will not change this allowing this function
 // to be used to iterate over the images in the reverse direction. In this sense it is more like ResetIterator() than SetFirstIterator().
 // Typically this function is used before AddImage(), ReadImage() functions to ensure new images are appended to the very end of wand's image list.
-func (mw *MagickWand) SetLastIterator() {
+/*func (mw *MagickWand) SetLastIterator() {
 	C.MagickSetLastIterator(mw.mw)
 }
+*/

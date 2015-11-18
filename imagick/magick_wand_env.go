@@ -18,14 +18,14 @@ func Initialize() {
 	if initialized {
 		return
 	}
-	C.MagickWandGenesis()
+	C.InitializeMagick(C.CString("foobar"))
 	initialized = true
 }
 
 // Terminates the MagickWand environment
 func Terminate() {
 	if initialized {
-		C.MagickWandTerminus()
+		C.DestroyMagick()
 		initialized = false
 	}
 }

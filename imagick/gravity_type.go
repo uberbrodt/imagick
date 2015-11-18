@@ -12,7 +12,7 @@ import "C"
 type GravityType int
 
 const (
-	GRAVITY_UNDEFINED  GravityType = C.UndefinedGravity
+	//	GRAVITY_UNDEFINED  GravityType = C.UndefinedGravity
 	GRAVITY_FORGET     GravityType = C.ForgetGravity
 	GRAVITY_NORTH_WEST GravityType = C.NorthWestGravity
 	GRAVITY_NORTH      GravityType = C.NorthGravity

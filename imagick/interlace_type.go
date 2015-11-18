@@ -17,7 +17,7 @@ const (
 	INTERLACE_LINE      InterlaceType = C.LineInterlace
 	INTERLACE_PLANE     InterlaceType = C.PlaneInterlace
 	INTERLACE_PARTITION InterlaceType = C.PartitionInterlace
-	INTERLACE_GIF       InterlaceType = C.GIFInterlace
-	INTERLACE_JPEG      InterlaceType = C.JPEGInterlace
-	INTERLACE_PNG       InterlaceType = C.PNGInterlace
+	//INTERLACE_GIF       InterlaceType = C.GIFInterlace
+	//INTERLACE_JPEG      InterlaceType = C.JPEGInterlace
+	//INTERLACE_PNG       InterlaceType = C.PNGInterlace
 )

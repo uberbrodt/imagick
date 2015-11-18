@@ -18,7 +18,7 @@ const (
 	RESOURCE_FILE      ResourceType = C.FileResource
 	RESOURCE_MAP       ResourceType = C.MapResource
 	RESOURCE_MEMORY    ResourceType = C.MemoryResource
-	RESOURCE_THREAD    ResourceType = C.ThreadResource
-	RESOURCE_TIME      ResourceType = C.TimeResource
-	RESOURCE_THROTTLE  ResourceType = C.ThrottleResource
+	//RESOURCE_THREAD    ResourceType = C.ThreadResource
+	//RESOURCE_TIME      ResourceType = C.TimeResource
+	//RESOURCE_THROTTLE  ResourceType = C.ThrottleResource
 )

@@ -23,5 +23,5 @@ const (
 	IMAGE_TYPE_COLOR_SEPARATION       ImageType = C.ColorSeparationType
 	IMAGE_TYPE_COLOR_SEPARATION_MATTE ImageType = C.ColorSeparationMatteType
 	IMAGE_TYPE_OPTIMIZE               ImageType = C.OptimizeType
-	IMAGE_TYPE_PALETTE_BILEVEL_MATTE  ImageType = C.PaletteBilevelMatteType
+	//IMAGE_TYPE_PALETTE_BILEVEL_MATTE  ImageType = C.PaletteBilevelMatteType
 )
