@@ -63,7 +63,7 @@ func (mw *MagickWand) Destroy() {
 		return
 	}
 	C.DestroyMagickWand(mw.mw)
-	relinquishMemory(unsafe.Pointer(mw.mw))
+	//relinquishMemory(unsafe.Pointer(mw.mw))
 	mw.mw = nil
 }
 

@@ -23,6 +23,7 @@ func TestNewMagickWand(t *testing.T) {
 	if !mw.IsVerified() {
 		t.Fatal("MagickWand not verified")
 	}
+
 }
 
 func TestCloningAndDestroying(t *testing.T) {
@@ -50,26 +51,6 @@ func TestQueryConfigureOptions(t *testing.T) {
 }
 
 */
-func TestNonExistingConfigureOption(t *testing.T) {
-	_, err := mw.QueryConfigureOption("4321foobaramps1234")
-	if err == nil {
-		t.Fatal("Missing error when trying to get non-existing configure option")
-	}
-}
-
-func TestQueryFonts(t *testing.T) {
-	fonts := mw.QueryFonts("*")
-	if len(fonts) == 0 {
-		t.Fatal("ImageMagick have not identified a single font in this system")
-	}
-}
-
-func TestQueryFormats(t *testing.T) {
-	formats := mw.QueryFormats("*")
-	if len(formats) == 0 {
-		t.Fatal("ImageMagick have not identified a single image format in this system")
-	}
-}
 
 /*
 func TestDeleteImageArtifact(t *testing.T) {
